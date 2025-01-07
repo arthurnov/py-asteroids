@@ -2,6 +2,7 @@
 # the open-source pygame library
 # throughout this file
 import pygame
+import sys
 from player import *
 from constants import *
 from asteroids import *
@@ -23,7 +24,7 @@ def main():
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable)
-    Shot.containers = (updatable, drawable)
+    Shot.containers = (bullets, updatable, drawable)
 
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
@@ -41,7 +42,11 @@ def main():
         for obj in asteroids:
             if obj.collision(player):
                 print("Game over!")
-                return
+                sys.exit()
+            for bullet in bullets:
+                if obj.collision(bullet):
+                    bullet.kill()
+                    obj.kill()
 
         screen.fill("black")
 
