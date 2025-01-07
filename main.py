@@ -46,7 +46,7 @@ def main():
             for bullet in bullets:
                 if obj.collision(bullet):
                     bullet.kill()
-                    obj.kill()
+                    obj.split()
 
         screen.fill("black")
 
